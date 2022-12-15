@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrienteeringProblem", "OrienteeringProblem\OrienteeringProblem.csproj", "{F8C98944-C1DA-42C9-B404-77B62B69E098}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8C98944-C1DA-42C9-B404-77B62B69E098}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8C98944-C1DA-42C9-B404-77B62B69E098}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8C98944-C1DA-42C9-B404-77B62B69E098}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8C98944-C1DA-42C9-B404-77B62B69E098}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
