@@ -4,3 +4,9 @@
 /Users/oscarhernandezlopez/RiderProjects/OrienteeringProblem/OrienteeringProblem/obj/Debug/OrienteeringProblem.csproj.CoreCompileInputs.cache
 /Users/oscarhernandezlopez/RiderProjects/OrienteeringProblem/OrienteeringProblem/obj/Debug/OrienteeringProblem.exe
 /Users/oscarhernandezlopez/RiderProjects/OrienteeringProblem/OrienteeringProblem/obj/Debug/OrienteeringProblem.pdb
+/Users/oscarhernandezlopez/repos/grasp-orieentering-problem/OrienteeringProblem/OrienteeringProblem/bin/Debug/OrienteeringProblem.exe
+/Users/oscarhernandezlopez/repos/grasp-orieentering-problem/OrienteeringProblem/OrienteeringProblem/bin/Debug/OrienteeringProblem.pdb
+/Users/oscarhernandezlopez/repos/grasp-orieentering-problem/OrienteeringProblem/OrienteeringProblem/obj/Debug/OrienteeringProblem.csproj.AssemblyReference.cache
+/Users/oscarhernandezlopez/repos/grasp-orieentering-problem/OrienteeringProblem/OrienteeringProblem/obj/Debug/OrienteeringProblem.csproj.CoreCompileInputs.cache
+/Users/oscarhernandezlopez/repos/grasp-orieentering-problem/OrienteeringProblem/OrienteeringProblem/obj/Debug/OrienteeringProblem.exe
+/Users/oscarhernandezlopez/repos/grasp-orieentering-problem/OrienteeringProblem/OrienteeringProblem/obj/Debug/OrienteeringProblem.pdb

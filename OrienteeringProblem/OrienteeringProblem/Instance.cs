@@ -10,7 +10,7 @@ namespace OrienteeringProblem
 
         public Instance()
         {
-            TimeBudget = 5;
+            TimeBudget = 20;
 
             Node n0 = new Node(0, 10.5, 14.4, 0);   //Initial node
             Node n1 = new Node(1, 11.2, 14.1, 0);   //Final node

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 namespace OrienteeringProblem
 {
@@ -17,7 +16,7 @@ namespace OrienteeringProblem
             ListSequenceOfVisit = new();    //List of results
         }
 
-        public void solve()
+        public void Solve()
         {
             //Constructive phase (by an alpha value)
             double alpha = 0.4;
@@ -28,15 +27,11 @@ namespace OrienteeringProblem
             ListSequenceOfVisit.Add(Data.ListNodes[0]);     //Start from the origin
             listUnvisited.Remove(Data.ListNodes[0]);        //Remove from unvisited origin node
             listUnvisited.Remove(Data.ListNodes[1]);        //Remove from unvisited final node
-
-            List<Node> listUnvisitedAux = new(listUnvisited);
             double cumulTime = 0;
-            while (listUnvisitedAux.Count!=0 && cumulTime<=Data.TimeBudget)
+            while (listUnvisited.Count!=0)
             {
-                //listUnvisited = listUnvisited.Except(ListSequenceOfVisit).ToList(); //Disjoint elements
-                
                 //Assign ratios based on score / distance from origin to the node
-                calculateRatiosfromNode(ListSequenceOfVisit.Last(), listUnvisited);
+                CalculateRatiosFromNode(ListSequenceOfVisit.Last(), listUnvisited);
                 
                 double minvalue = Double.PositiveInfinity;
                 double maxvalue = 0;
@@ -48,7 +43,7 @@ namespace OrienteeringProblem
                 
                 List<Node> listRCL = new();
                 
-                foreach (var n in listUnvisitedAux)
+                foreach (var n in listUnvisited)
                 {
                     if (n.Ratio >= maxvalue - alpha*(maxvalue-minvalue))
                     {
@@ -57,8 +52,8 @@ namespace OrienteeringProblem
                 }
 
                 var random = new Random();
-                int indexselected = random.Next(listRCL.Count);
-                Node candidate = listRCL[indexselected];
+                int indexSelected = random.Next(listRCL.Count);
+                Node candidate = listRCL[indexSelected];
                 
                 Node lastVisitedNode = ListSequenceOfVisit.Last();
                 cumulTime += lastVisitedNode.DistanceTo(candidate);
@@ -67,24 +62,65 @@ namespace OrienteeringProblem
                 if (cumulTime+tReturn<=Data.TimeBudget)
                 {
                     ListSequenceOfVisit.Add(candidate);
-                    listUnvisited.Remove(candidate);
+                   
                 }
                 else
                 {
                     cumulTime -= lastVisitedNode.DistanceTo(candidate);
                 }
                 
+                listUnvisited.Remove(candidate);
+                
             }
             
+            ListSequenceOfVisit.Add(Data.ListNodes[1]);
             
+            PrintSolution();
         }
 
-        public void calculateRatiosfromNode(Node origin, List<Node> aListNode)
+        public void CalculateRatiosFromNode(Node origin, List<Node> aListNode)
         {
             foreach (var n in aListNode)
             {
                 n.Ratio = n.Score / n.DistanceTo(origin);
             }
         }
+
+        public void PrintSolution()
+        {
+            Console.Write("Tour: ");
+            foreach (var n in ListSequenceOfVisit)
+            {
+                Console.Write(n.Id + " ");
+            }
+            
+            Console.WriteLine("\nFitness: " + CalculateFitness());
+            Console.WriteLine("Total travel time used: " + CalculateTotalTime());
+        }
+
+        public int CalculateFitness()
+        {
+            int fitness = 0;
+            foreach (var n in ListSequenceOfVisit)
+            {
+                fitness += n.Score;
+            }
+            return fitness;
+        }
+
+        public double CalculateTotalTime()
+        {
+            double totalTravelTime = 0.0;
+            for (int i = 0; i < ListSequenceOfVisit.Count - 1; i++)
+            {
+                Node org = ListSequenceOfVisit[i];
+                Node dest = ListSequenceOfVisit[i + 1];
+
+                totalTravelTime += org.DistanceTo(dest);
+            }
+            
+            return totalTravelTime;
+        }
+        
     }
 }

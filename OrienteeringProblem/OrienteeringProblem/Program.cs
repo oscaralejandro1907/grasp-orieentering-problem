@@ -8,7 +8,7 @@
             data.PrintInstance();
 
             Algorithm grasp = new Algorithm(data);
-            grasp.solve();
+            grasp.Solve();
         }
     }
 }
