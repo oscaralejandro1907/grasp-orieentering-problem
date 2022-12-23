@@ -51,7 +51,7 @@ namespace OrienteeringProblem
                     }
                 }
 
-                var random = new Random();
+                var random = new Random(1);
                 int indexSelected = random.Next(listRCL.Count);
                 Node candidate = listRCL[indexSelected];
                 
@@ -73,8 +73,13 @@ namespace OrienteeringProblem
             }
             
             ListSequenceOfVisit.Add(Data.ListNodes[1]);
-            
-            PrintSolution();
+
+            //Create and Print Solution
+            Solution S = new Solution();
+            S.ListVisitedNodes = ListSequenceOfVisit;
+            S.Fitness = S.CalculateFitness();
+            S.PrintSolution();
+
         }
 
         public void CalculateRatiosFromNode(Node origin, List<Node> aListNode)
@@ -83,42 +88,6 @@ namespace OrienteeringProblem
             {
                 n.Ratio = n.Score / n.DistanceTo(origin);
             }
-        }
-
-        public void PrintSolution()
-        {
-            Console.Write("Tour: ");
-            foreach (var n in ListSequenceOfVisit)
-            {
-                Console.Write(n.Id + " ");
-            }
-            
-            Console.WriteLine("\nFitness: " + CalculateFitness());
-            Console.WriteLine("Total travel time used: " + CalculateTotalTime());
-        }
-
-        public int CalculateFitness()
-        {
-            int fitness = 0;
-            foreach (var n in ListSequenceOfVisit)
-            {
-                fitness += n.Score;
-            }
-            return fitness;
-        }
-
-        public double CalculateTotalTime()
-        {
-            double totalTravelTime = 0.0;
-            for (int i = 0; i < ListSequenceOfVisit.Count - 1; i++)
-            {
-                Node org = ListSequenceOfVisit[i];
-                Node dest = ListSequenceOfVisit[i + 1];
-
-                totalTravelTime += org.DistanceTo(dest);
-            }
-            
-            return totalTravelTime;
         }
         
     }
