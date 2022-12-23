@@ -42,6 +42,7 @@
     <ItemGroup>
         <Compile Include="Algorithm.cs" />
         <Compile Include="Instance.cs" />
+        <Compile Include="LocalSearch.cs" />
         <Compile Include="Node.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />

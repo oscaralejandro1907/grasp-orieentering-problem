@@ -7,8 +7,9 @@
             Instance data = new Instance();
             data.PrintInstance();
 
-            Algorithm grasp = new Algorithm(data);
-            grasp.Solve();
+            Algorithm constructive = new Algorithm(data);
+            constructive.Solve();
+            LocalSearch ls = new LocalSearch(data, constructive.ListSequenceOfVisit);
         }
     }
 }

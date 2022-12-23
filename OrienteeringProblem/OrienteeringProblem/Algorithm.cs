@@ -7,7 +7,7 @@ namespace OrienteeringProblem
     public class Algorithm
     {
         public Instance Data { get; set; }
-        private List<Node> ListSequenceOfVisit { get; set; }
+        public List<Node> ListSequenceOfVisit { get; set; }
 
         public Algorithm(Instance I)
         {
@@ -33,6 +33,7 @@ namespace OrienteeringProblem
                 //Assign ratios based on score / distance from origin to the node
                 CalculateRatiosFromNode(ListSequenceOfVisit.Last(), listUnvisited);
                 
+                
                 double minvalue = Double.PositiveInfinity;
                 double maxvalue = 0;
                 foreach (var n in listUnvisited)
@@ -42,7 +43,6 @@ namespace OrienteeringProblem
                 }
                 
                 List<Node> listRCL = new();
-                
                 foreach (var n in listUnvisited)
                 {
                     if (n.Ratio >= maxvalue - alpha*(maxvalue-minvalue))
@@ -62,7 +62,6 @@ namespace OrienteeringProblem
                 if (cumulTime+tReturn<=Data.TimeBudget)
                 {
                     ListSequenceOfVisit.Add(candidate);
-                   
                 }
                 else
                 {
