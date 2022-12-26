@@ -26,8 +26,6 @@ namespace OrienteeringProblem
         {
             List<Node> listVisitedNodes = new List<Node>(ListVisitedNodes);
             List<Node> listUnvisitedNodes = new List<Node>(ListUnvisitedNodes);
-
-            Scurr.ListVisitedNodes = new (listVisitedNodes);
             
             listVisitedNodes.Remove(listVisitedNodes.First());
             listVisitedNodes.Remove(listVisitedNodes.Last());
@@ -35,6 +33,7 @@ namespace OrienteeringProblem
             while (listVisitedNodes.Count!=0)
             {
                 Node vnode = listVisitedNodes.Last();
+                Scurr.ListVisitedNodes = new (Sinit.ListVisitedNodes);
                 Scurr.ListVisitedNodes.Remove(vnode);
                 Scurr.ListVisitedNodes.Remove(Data.ListNodes[1]);
                 listVisitedNodes.Remove(listVisitedNodes.Last());
@@ -57,14 +56,6 @@ namespace OrienteeringProblem
                 }
                 
             }
-
-        }
-
-        public List<Node> GetListVisitedNodes()
-        {
-            List<Node> listVisitedNodes = new List<Node>(Sinit.ListVisitedNodes);
-
-            return listVisitedNodes;
 
         }
 
