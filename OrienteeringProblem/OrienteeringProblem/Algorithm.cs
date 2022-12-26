@@ -8,12 +8,14 @@ namespace OrienteeringProblem
     {
         public Instance Data { get; set; }
         public List<Node> ListSequenceOfVisit { get; set; }
+        public Solution S { get; set; }
 
         public Algorithm(Instance I)
         {
             Data = new();
             Data = I;
             ListSequenceOfVisit = new();    //List of results
+            S = new();
         }
 
         public void Solve()
@@ -75,11 +77,9 @@ namespace OrienteeringProblem
             ListSequenceOfVisit.Add(Data.ListNodes[1]);
 
             //Create and Print Solution
-            Solution S = new Solution();
             S.ListVisitedNodes = ListSequenceOfVisit;
             S.Fitness = S.CalculateFitness();
             S.PrintSolution();
-
         }
 
         public void CalculateRatiosFromNode(Node origin, List<Node> aListNode)

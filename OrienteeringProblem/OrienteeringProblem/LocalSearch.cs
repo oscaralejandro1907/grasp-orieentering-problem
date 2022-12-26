@@ -7,57 +7,90 @@ namespace OrienteeringProblem
     public class LocalSearch
     {
         public Instance Data { get; set; }
-        public List<Node> InitialSolution { get; set; }
-        public List<Node> ListUnvisited { get; set; }
+        public  Solution Sinit { get; set; }
+        public Solution Scurr { get; set; }
+        private List<Node> ListVisitedNodes { get; set; }
+        private List<Node> ListUnvisitedNodes { get; set; }
 
-        public LocalSearch(Instance data, List<Node> initialSolution)
+        public LocalSearch(Instance data, Solution s)
         {
             Data = data;
-            InitialSolution = initialSolution;
-            ListUnvisited = new();
-            ListUnvisited = Data.ListNodes.Except(InitialSolution).ToList();
+            Sinit = s;
+            Scurr = new();
+            
+            ListVisitedNodes = s.ListVisitedNodes;
+            ListUnvisitedNodes = Data.ListNodes.Except(ListVisitedNodes).ToList();
         }
 
         public void Solve()
         {
-            List<Node> listVisitedNodes = new List<Node>(InitialSolution);
-            List<Node> listUnvisitedNodes = new List<Node>(ListUnvisited);
+            List<Node> listVisitedNodes = new List<Node>(ListVisitedNodes);
+            List<Node> listUnvisitedNodes = new List<Node>(ListUnvisitedNodes);
 
-            listUnvisitedNodes = listUnvisitedNodes.OrderByDescending(n => n.Score).ToList();
+            Scurr.ListVisitedNodes = new (listVisitedNodes);
+            
+            listVisitedNodes.Remove(listVisitedNodes.First());
             listVisitedNodes.Remove(listVisitedNodes.Last());
             
-            foreach (var n in listUnvisitedNodes)
+            while (listVisitedNodes.Count!=0)
             {
+                Node vnode = listVisitedNodes.Last();
+                Scurr.ListVisitedNodes.Remove(vnode);
+                Scurr.ListVisitedNodes.Remove(Data.ListNodes[1]);
+                listVisitedNodes.Remove(listVisitedNodes.Last());
+                
+                listUnvisitedNodes = listUnvisitedNodes.OrderByDescending(n => n.Score).ToList();
+                foreach (var n in listUnvisitedNodes)
+                {
+                    bool nodeInserted = ForceInsertNode(n,Scurr);
+                    if (nodeInserted && n!=listUnvisitedNodes.Last())
+                    {
+                        Scurr.ListVisitedNodes.Remove(Data.ListNodes[1]);
+                    }
+                }
+
+                if (Scurr.Fitness > Sinit.Fitness)
+                {
+                    Console.WriteLine("Local Search Found a Better Solution");
+                    Scurr.PrintSolution();
+                    break;  //End at First Improvement
+                }
                 
             }
-            
-            
+
         }
 
-        public Solution ForceInsertNode(Node n, List<Node> listVisited)
+        public List<Node> GetListVisitedNodes()
         {
-            Solution sNew = new Solution();
-            int position = listVisited.Count - 1; //last position
+            List<Node> listVisitedNodes = new List<Node>(Sinit.ListVisitedNodes);
+
+            return listVisitedNodes;
+
+        }
+
+        public bool ForceInsertNode(Node n, Solution Scurr)
+        {
+            int position = Scurr.ListVisitedNodes.Count; //last position
             while (position != 0)
             {
-                listVisited.Insert(position,n);
-                double tReturn = listVisited.Last().DistanceTo(Data.ListNodes[1]);
-                if (CalculateCurrentDistance(listVisited) + tReturn > Data.TimeBudget )
+                Scurr.ListVisitedNodes.Insert(position,n);
+                double tReturn = Scurr.ListVisitedNodes.Last().DistanceTo(Data.ListNodes[1]);
+                if (CalculateCurrentDistance(Scurr.ListVisitedNodes) + tReturn > Data.TimeBudget )
                 {
-                    listVisited.Remove(n);
+                    Scurr.ListVisitedNodes.Remove(n);
                     position--;
                 }
                 else
                 {
-                    listVisited.Add(Data.ListNodes[1]);
-                    sNew.ListVisitedNodes = listVisited;
-                    sNew.Fitness = sNew.CalculateFitness();
-                    break;
+                    Scurr.ListVisitedNodes.Add(Data.ListNodes[1]);
+                    Scurr.Fitness = Scurr.CalculateFitness();
+                    return true;
                 }
             }
 
-            return sNew;
+            return false;
         }
+        
 
         public double CalculateCurrentDistance(List<Node> listVisited)
         {

@@ -9,7 +9,7 @@
 
             Algorithm constructive = new Algorithm(data);
             constructive.Solve();
-            LocalSearch ls = new LocalSearch(data, constructive.ListSequenceOfVisit);
+            LocalSearch ls = new LocalSearch(data, constructive.S);
             ls.Solve();
         }
     }
